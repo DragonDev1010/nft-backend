@@ -2,16 +2,14 @@ var express = require('express')
 var mongoose = require('mongoose')
 
 app = express()
-
 port = process.env.PORT || 8080
 
-
-Task = require('./api/models/todoListModel')
 bodyParser = require('body-parser')
-
+// Task = require('./api/models/todoListModel')
+User = require('./api/models/userListModel')
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/Tododb', function(err){
+mongoose.connect('mongodb://localhost/SpaceNFT', function(err){
     console.error('mongoose connect issue', err)
 })
 
@@ -19,7 +17,8 @@ mongoose.connect('mongodb://localhost/Tododb', function(err){
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-var routes = require('./api/routes/todoListRoutes')
+// var routes = require('./api/routes/todoListRoutes')
+var routes = require('./api/routes/userListRoutes')
 routes(app)
 
 app.listen(port)
