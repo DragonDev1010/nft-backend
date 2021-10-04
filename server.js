@@ -1,5 +1,6 @@
 var express = require('express')
 var mongoose = require('mongoose')
+var cors = require("cors");
 
 app = express()
 port = process.env.PORT || 8080
@@ -13,7 +14,7 @@ mongoose.connect('mongodb://localhost/SpaceNFT', function(err){
     console.error('mongoose connect issue', err)
 })
 
-
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
