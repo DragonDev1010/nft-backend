@@ -2,12 +2,16 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-var TaskSchema = new Schema({
+var NFTSchema = new Schema({
     name: {
         type: String,
         required: 'Required'
     },
-    Created_date: {
+    hash: {
+        type: String,
+        required: 'Required'
+    },
+    created_date: {
         type: Date,
         default: Date.now
     },
@@ -20,4 +24,4 @@ var TaskSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Tasks', TaskSchema)
+module.exports = mongoose.model('NFTs', NFTSchema)
