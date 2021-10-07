@@ -19,8 +19,8 @@ exports.list_all_nfts = function(req, res) {
 
 
 exports.create_a_nft = async function(req, res) {
-  if(req.files.inputFile) {
-    const file = req.files.inputFile
+  if(req.files.file) {
+    const file = req.files.file
     const fileName = file.name
     const filePath = __dirname + '/files/' + fileName
     let fileHash
@@ -48,8 +48,6 @@ exports.create_a_nft = async function(req, res) {
   } else {
     res.send('file upload false')
   }
-  
-  
 };
 
 
