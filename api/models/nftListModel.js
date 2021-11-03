@@ -3,13 +3,24 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var NFTSchema = new Schema({
-    collection_id: Number,
-    name: String,
     nft_id: Number,
+    name: String,
     description: String,
     price: Number,
-    creator_id: Number,
-    owner: Number
+    nftCollection: {
+        id: Number,
+        name: String
+    },
+    creator: {
+        id: Number,
+        name: String,
+        email: String
+    },
+    owner: {
+        id: Number,
+        name: String,
+        email: String
+    }
 }, {collection: 'nft'})
 
 module.exports = mongoose.model('nft', NFTSchema)
