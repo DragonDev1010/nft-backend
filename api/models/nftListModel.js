@@ -7,7 +7,7 @@ var NFTSchema = new Schema({
     name: String,
     description: String,
     price: Number,
-    nftCollection: {
+    collects: {
         id: Number,
         name: String
     },
@@ -20,7 +20,8 @@ var NFTSchema = new Schema({
         id: Number,
         name: String,
         email: String
-    }
+    },
+    status: Number
 }, {collection: 'nft'})
 
 module.exports = mongoose.model('nft', NFTSchema)

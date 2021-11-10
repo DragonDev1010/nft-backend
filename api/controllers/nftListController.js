@@ -4,10 +4,17 @@ var mongoose = require('mongoose')
 var NFT = mongoose.model('nft');
 
 exports.list_all_nfts = function(req, res) {
-    NFT.find({}, function(err, nft) {
-        if (err)
-          res.send(err);
-        res.json(nft);
+	var filters = req.query
+	var query = {}
+	query["status"] = {$in: filters.search.status}
+	query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
+	query["collects.name"] = {$in: filters.search.collects}
+    NFT.find(
+		query, 
+		function(err, nft) {
+			if (err)
+				res.send(err);
+			res.json(nft);
     });
 }
 
