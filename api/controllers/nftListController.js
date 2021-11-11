@@ -2,13 +2,13 @@
 
 var mongoose = require('mongoose')
 var NFT = mongoose.model('nft');
-
 exports.list_all_nfts = function(req, res) {
 	var filters = req.query
 	var query = {}
+	// localhost:8000/nfts?search[collects][0]=Tiger&search[status][0]=0&search[status][1]=1&search[price][min]=0.04&search[price][max]=0.07
 	query["status"] = {$in: filters.search.status}
-	query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
-	query["collects.name"] = {$in: filters.search.collects}
+	// query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
+	// query["collects.name"] = {$in: filters.search.collects}
     NFT.find(
 		query, 
 		function(err, nft) {
@@ -34,9 +34,6 @@ exports.read_a_nft = function(req, res) {
 		  res.send(err);
 		res.json(nft);
 	})
-	// NFT.findById(req.params.nftId, function(err, nft) {
-		
-	// });
 }
 
 exports.update_a_nft = function(req, res) {

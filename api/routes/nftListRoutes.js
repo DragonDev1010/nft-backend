@@ -16,8 +16,4 @@ module.exports = function(app) {
         .get(nftList.read_a_nft)
         .put(nftList.update_a_nft)
         .delete(nftList.delete_a_nft)
-    // app.get('/nfts', function (req, res) {
-    //     res.send('GET request to the homepage')
-    //     console.log(req.query)
-    // })
 }
