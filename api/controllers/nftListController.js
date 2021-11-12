@@ -6,9 +6,16 @@ exports.list_all_nfts = function(req, res) {
 	var filters = req.query
 	var query = {}
 	// localhost:8000/nfts?search[collects][0]=Tiger&search[status][0]=0&search[status][1]=1&search[price][min]=0.04&search[price][max]=0.07
-	query["status"] = {$in: filters.search.status}
-	// query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
-	// query["collects.name"] = {$in: filters.search.collects}
+	if(filters.search !== undefined) {
+		if(filters.search.status !== undefined) {
+			query["status"] = {$in: filters.search.status}
+		}
+		if(filters.search.price !== undefined) {
+			query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
+		}
+		// query["collects.name"] = {$in: filters.search.collects}
+	}
+	
     NFT.find(
 		query, 
 		function(err, nft) {
