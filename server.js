@@ -22,10 +22,10 @@ Nft = require('./api/models/nftListModel')
 var nftRoutes = require('./api/routes/nftListRoutes')
 nftRoutes(app)
 
-// // Collection Table
-// Collection = require('./api/models/collectionListModel')
-// var collectionRoutes = require('./api/routes/collectionListRoutes')
-// collectionRoutes(app)
+// Collection Table
+Collection = require('./api/models/collectionListModel')
+var collectionRoutes = require('./api/routes/collectionListRoutes')
+collectionRoutes(app)
 
 // // User Table
 // User = require('./api/models/userListModel')

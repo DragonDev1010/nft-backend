@@ -13,9 +13,16 @@ exports.list_all_nfts = function(req, res) {
 		if(filters.search.price !== undefined) {
 			query["price"] = {$gte: filters.search.price.min, $lte: filters.search.price.max}
 		}
+		// {"collects.name": {$in: ['Bear']}}
+		if(filters.search.collects !== undefined) {
+			query["collects.name"] = {$in: filters.search.collects}
+		}
+		if(filters.search.category !== undefined) {
+			query["category"] = {$in: filters.search.category}
+		}
 		// query["collects.name"] = {$in: filters.search.collects}
+		
 	}
-	
     NFT.find(
 		query, 
 		function(err, nft) {
