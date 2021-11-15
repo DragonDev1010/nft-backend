@@ -2,6 +2,9 @@
 
 var mongoose = require('mongoose')
 var NFT = mongoose.model('nft');
+const fs = require('fs')
+const {create} = require('ipfs-http-client')
+const ipfs = create('http://localhost:5001')
 exports.list_all_nfts = function(req, res) {
 	var filters = req.query
 	var query = {}
@@ -31,15 +34,55 @@ exports.list_all_nfts = function(req, res) {
 			res.json(nft);
     });
 }
-
-exports.create_a_nft = function(req, res) {
-	console.log(req.body)
-	var new_nft = new NFT(req.body)
-	new_nft.save(function(err, nft) {
-		if(err) 
-			res.send(err)
-		res.json(nft)
+function getDateName() {
+	let curDate = new Date()
+	let year = curDate.getFullYear().toString()
+	let month = (curDate.getMonth()+1).toString()
+	if(curDate.getMonth() < 9 ) month = '0' + month;
+	let date = curDate.getDate().toString() 
+	if(curDate.getDate() < 10 ) date = '0' + date;
+	let hour = curDate.getHours().toString()
+	if(hour < 10 ) hour = '0' + hour;
+	let min = curDate.getMinutes().toString() 
+	if(curDate.getMinutes() < 10) min = '0' + min;
+	let sec = curDate.getSeconds().toString()
+	if(curDate.getSeconds() < 10 ) sec = '0' + sec;
+	return (year + month + date + hour + min + sec)
+}
+const addFile = async (fileName, filePath) => {
+	const file = fs.readFileSync(filePath)
+	const filesAdded = await ipfs.add({
+		path: fileName,
+		content: file
+	},
+	{
+		progress: (len) => console.log('Uploading file ... ' + len)
 	})
+	const fileHash = filesAdded.cid
+	return fileHash.toString()
+}
+exports.create_a_nft = async function(req, res) {
+	console.log(req)
+	let fileHash
+	let imageFile = req.files.file;
+	let fileName = req.body.name + '_' + getDateName() + '.jpg'
+	let filePath = process.env.PWD + '/files/' + fileName 
+	imageFile.mv(filePath, async (err) => {
+		if (err) {
+			console.log('Error: failed to download file')
+			return res.status(500).send(err);
+		}
+		fileHash = await addFile(fileName, filePath)
+		req.body.hash = fileHash
+		req.body.imgURL = fileName
+		var newNft = new NFT(req.body)
+		newNft.save(function(err, nft) {
+			if(err)
+				res.send(err)
+			res.json(nft)
+		})
+	});
+	
 }
 
 exports.read_a_nft = function(req, res) {

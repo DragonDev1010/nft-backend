@@ -29,15 +29,15 @@ exports.create_a_nft = async function(req, res) {
           console.log('Error: failed to download file')
           return res.status(500).send(err)
       }
-      // fileHash = await addFile(fileName, filePath)
-      // console.log('File Hash received __>', fileHash)
-      // req.body.hash = fileHash
-      // var new_nft = new NFT(req.body)
-      // new_nft.save(function(err, nft) {
-      //   if(err)
-      //     res.send(err)
-      //   res.json(nft)
-      // })
+      fileHash = await addFile(fileName, filePath)
+      console.log('File Hash received __>', fileHash)
+      req.body.hash = fileHash
+      var new_nft = new NFT(req.body)
+      new_nft.save(function(err, nft) {
+        if(err)
+          res.send(err)
+        res.json(nft)
+      })
       console.log('requestion: ', req.body)
       fs.unlink(filePath, (err) => {
           if(err) {
