@@ -4,28 +4,20 @@ var Schema = mongoose.Schema
 
 var NFTSchema = new Schema({
     nft_id: Number,
+
+    collects: String,
+    artType: String,
     name: String,
     description: String,
-    price: Number,
-    collects: {
-        id: Number,
-        name: String
-    },
-    creator: {
-        id: Number,
-        name: String,
-        email: String
-    },
-    owner: {
-        id: Number,
-        name: String,
-        email: String
-    },
-    category: String,
-    status: String,
+    creatorAddr: String,
+
     hash: String,
-    artType: String,
-    imgURL: String
+    imgURL: String,
+
+    price: Number,
+    ownerAddr: String,
+
+    img: { data: Buffer, contentType: String}
 }, {collection: 'nft'})
 
 module.exports = mongoose.model('nft', NFTSchema)

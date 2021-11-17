@@ -20,9 +20,6 @@ exports.list_all_nfts = function(req, res) {
 		if(filters.search.collects !== undefined) {
 			query["collects.name"] = {$in: filters.search.collects}
 		}
-		if(filters.search.category !== undefined) {
-			query["category"] = {$in: filters.search.category}
-		}
 		// query["collects.name"] = {$in: filters.search.collects}
 		
 	}
@@ -62,27 +59,44 @@ const addFile = async (fileName, filePath) => {
 	return fileHash.toString()
 }
 exports.create_a_nft = async function(req, res) {
-	console.log(req)
 	let fileHash
-	let imageFile = req.files.file;
+	let nftCount
+
 	let fileName = req.body.name + '_' + getDateName() + '.jpg'
 	let filePath = process.env.PWD + '/files/' + fileName 
+	
+	let imageFile = req.files.file;
+	// console.log('file: ', req.files.file)
+	// console.log('imageFile: ', req.files.imageFile)
 	imageFile.mv(filePath, async (err) => {
 		if (err) {
 			console.log('Error: failed to download file')
 			return res.status(500).send(err);
 		}
-		fileHash = await addFile(fileName, filePath)
-		req.body.hash = fileHash
-		req.body.imgURL = fileName
-		var newNft = new NFT(req.body)
-		newNft.save(function(err, nft) {
-			if(err)
-				res.send(err)
-			res.json(nft)
-		})
 	});
+
+	let count = await NFT.countDocuments();
+	req.body.nft_id = count
+
+	fileHash = await addFile(fileName, filePath)
+	req.body.hash = fileHash
+
+	req.body.imgURL = fileName
+
+	let img = {
+		data: fs.readFileSync(filePath),
+		contentType: 'image/jpg'
+	}
+
 	
+	req.body.img = img
+	
+	var newNft = new NFT(req.body)
+	newNft.save(function(err, nft) {
+		if(err)
+			res.send(err)
+		res.json(nft)
+	})
 }
 
 exports.read_a_nft = function(req, res) {
