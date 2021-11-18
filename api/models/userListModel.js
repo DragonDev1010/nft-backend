@@ -5,27 +5,27 @@ var Schema = mongoose.Schema
 var UserSchema = new Schema({
     name: {
         type: String,
-        required: 'Required'
+        required: true
     },
     email: {
         type: String,
-        required: 'Required'
+        required: true
     },
-    password: {
+    walletAddress: {
         type: String,
-        required: 'Required'
+        required: true
+    },
+    bio: {
+        type: String
+    },
+    avatar: {
+        data: Buffer,
+        contentType: String
     },
     Created_date: {
         type: Date,
         default: Date.now
     },
-    status: {
-        type: [{
-            type: String,
-            enum: ['pending', 'ongoing', 'completed']
-        }],
-        default: ['pending']
-    }
 })
 
 module.exports = mongoose.model('Users', UserSchema)

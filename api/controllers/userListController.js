@@ -13,8 +13,6 @@ exports.list_all_users = function(req, res) {
 };
 
 exports.create_a_user = function(req, res) {
-  console.log(req)
-  
   var new_user = new User(req.body);
   new_user.save(function(err, user) {
     if (err)
@@ -51,7 +49,3 @@ exports.read_a_user = function(req, res) {
       res.json({ message: 'User successfully deleted' });
     });
   };
-
-  exports.test = function(req, res) {
-    res.send('API is working properly')
-  }

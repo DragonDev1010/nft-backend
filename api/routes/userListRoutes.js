@@ -9,7 +9,4 @@ module.exports = function(app) {
         .get(userList.read_a_user)
         .put(userList.update_a_user)
         .delete(userList.delete_a_user)
-    
-    app.route('/test/')
-        .get(userList.test)
 }

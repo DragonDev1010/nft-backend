@@ -28,9 +28,9 @@ var collectionRoutes = require('./api/routes/collectionListRoutes')
 collectionRoutes(app)
 
 // // User Table
-// User = require('./api/models/userListModel')
-// var userRoutes = require('./api/routes/userListRoutes')
-// userRoutes(app)
+User = require('./api/models/userListModel')
+var userRoutes = require('./api/routes/userListRoutes')
+userRoutes(app)
 
 app.listen(port)
 
