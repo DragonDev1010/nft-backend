@@ -18,7 +18,7 @@ exports.list_all_nfts = function(req, res) {
 		}
 		// {"collects.name": {$in: ['Bear']}}
 		if(filters.search.collects !== undefined) {
-			query["collects.name"] = {$in: filters.search.collects}
+			query["collects"] = {$in: filters.search.collects}
 		}
 		// query["collects.name"] = {$in: filters.search.collects}
 		
@@ -66,8 +66,6 @@ exports.create_a_nft = async function(req, res) {
 	let filePath = process.env.PWD + '/files/' + fileName 
 	
 	let imageFile = req.files.file;
-	// console.log('file: ', req.files.file)
-	// console.log('imageFile: ', req.files.imageFile)
 	imageFile.mv(filePath, async (err) => {
 		if (err) {
 			console.log('Error: failed to download file')
