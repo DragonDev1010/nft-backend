@@ -120,6 +120,30 @@ exports.update_fav = function(req, res) {
 		res.json(nft);
 	});
 }
+exports.nftFavCnt = function(req, res) {
+	NFT.aggregate()
+		.match({nft_id: parseInt(req.params.nftId)})
+		.project({
+			numberOfFavs: {
+			  $cond: {
+				if: {
+				  $isArray: "$favUserIds"
+				},
+				then: {
+				  $size: "$favUserIds"
+				},
+				else: 0
+			  }
+			}
+		  })
+		.exec(function(err, numberOfFavs) {
+			if(err) {
+				res.send(err)
+			} else {
+				res.json(numberOfFavs[0].numberOfFavs)
+			}
+		})
+}
 exports.delete_a_nft = function(req, res) {
 	NFT.remove({
 		_id: req.params.nftId
@@ -129,4 +153,5 @@ exports.delete_a_nft = function(req, res) {
 		res.json({ message: 'NFT successfully deleted' });
 	});
 }
+
 

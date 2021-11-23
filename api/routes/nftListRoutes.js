@@ -18,4 +18,6 @@ module.exports = function(app) {
         .delete(nftList.delete_a_nft)
     app.route('/nfts/favs/:nftId')
         .put(nftList.update_fav)
+    app.route('/nftFavCnt/:nftId')
+        .get(nftList.nftFavCnt)
 }
