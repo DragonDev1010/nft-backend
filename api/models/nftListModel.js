@@ -17,6 +17,8 @@ var NFTSchema = new Schema({
     price: Number,
     ownerAddr: String,
 
+    favUserIds: [Number],
+
     img: { data: Buffer, contentType: String}
 }, {collection: 'nft'})
 

@@ -3,6 +3,9 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var UserSchema = new Schema({
+    userId: {
+        type: Number
+    },
     name: {
         type: String,
         required: true
@@ -22,6 +25,7 @@ var UserSchema = new Schema({
         data: Buffer,
         contentType: String
     },
+    favNftIds: [Number],
     Created_date: {
         type: Date,
         default: Date.now

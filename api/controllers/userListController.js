@@ -4,7 +4,6 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('Users');
 exports.list_all_users = function(req, res) {
-  console.log('xd')
   User.find({}, function(err, user) {
     if (err)
       res.send(err);
@@ -23,7 +22,7 @@ exports.create_a_user = function(req, res) {
 
 
 exports.read_a_user = function(req, res) {
-    User.findById(req.params.userId, function(err, user) {
+    User.find({userId: req.params.userId}, function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -32,14 +31,20 @@ exports.read_a_user = function(req, res) {
   
   
   exports.update_a_user = function(req, res) {
-    User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
+    User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
     });
   };
   
-  
+  exports.update_fav = function(req, res) {
+    User.findOneAndUpdate({userId: req.params.userId}, {favNftIds: req.body.favNftIds}, function(err, user) {
+      if (err)
+        res.send(err);
+      res.json(user);
+    });
+  }
   exports.delete_a_user = function(req, res) {
     User.remove({
       _id: req.params.userId

@@ -106,13 +106,20 @@ exports.read_a_nft = function(req, res) {
 }
 
 exports.update_a_nft = function(req, res) {
-	NFT.findOneAndUpdate({_id: req.params.nftId}, req.body, {new: true}, function(err, nft) {
+	NFT.findOneAndUpdate({nft_id: req.params.nftId}, req.body, {new: true}, function(err, nft) {
 		if (err)
 		  res.send(err);
 		res.json(nft);
 	});
 }
 
+exports.update_fav = function(req, res) {
+	NFT.findOneAndUpdate({nft_id: req.params.nftId}, {favUserIds: req.body.favUserIds}, function(err, nft) {
+		if (err)
+		  res.send(err);
+		res.json(nft);
+	});
+}
 exports.delete_a_nft = function(req, res) {
 	NFT.remove({
 		_id: req.params.nftId
@@ -122,3 +129,4 @@ exports.delete_a_nft = function(req, res) {
 		res.json({ message: 'NFT successfully deleted' });
 	});
 }
+
