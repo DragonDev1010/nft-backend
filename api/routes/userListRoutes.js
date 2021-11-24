@@ -11,4 +11,6 @@ module.exports = function(app) {
         .delete(userList.delete_a_user)
     app.route('/users/favs/:userId')
         .put(userList.update_fav)
+    app.route('/users/findByWallet/:walletAddress')
+        .get(userList.findByWallet)
 }
