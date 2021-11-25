@@ -30,6 +30,8 @@ var UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    bgImg: { data: Buffer, contentType: String},
+    userImg: { data: Buffer, contentType: String}
 })
 
 module.exports = mongoose.model('Users', UserSchema)

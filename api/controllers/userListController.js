@@ -3,6 +3,7 @@
 
 var mongoose = require('mongoose'),
   	User = mongoose.model('Users');
+const fs = require('fs')
 exports.list_all_users = function(req, res) {
 	User.find({}, function(err, user) {
 		if (err)
@@ -30,12 +31,26 @@ exports.read_a_user = function(req, res) {
 };
 
 
-exports.update_a_user = function(req, res) {
-	User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
-		if (err)
-			res.send(err);
-		res.json(user);
-	});
+exports.update_a_user = async function(req, res) {
+	let bgImgPath = process.env.PWD + '/usersImg/' + req.params.userId + '_bgImg.jpg'
+	let bgImgFile = req.files.bgImg 
+	await bgImgFile.mv(bgImgPath, async (err) => {
+		if (err) {
+			console.log('Error: failed to download file')
+			return res.status(500).send(err);
+		} 
+		let bgImg = {
+			data: fs.readFileSync(bgImgPath),
+			contentType: 'image/jpg'
+		}
+		req.body.bgImg = bgImg
+		User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
+			if (err)
+				res.send(err);
+			res.json(user);
+		});
+	})
+	
 };
 
 exports.update_fav = function(req, res) {

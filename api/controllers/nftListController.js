@@ -60,7 +60,6 @@ const addFile = async (fileName, filePath) => {
 }
 exports.create_a_nft = async function(req, res) {
 	let fileHash
-	let nftCount
 
 	let fileName = req.body.name + '_' + getDateName() + '.jpg'
 	let filePath = process.env.PWD + '/files/' + fileName 
@@ -80,12 +79,10 @@ exports.create_a_nft = async function(req, res) {
 	req.body.hash = fileHash
 
 	req.body.imgURL = fileName
-
 	let img = {
 		data: fs.readFileSync(filePath),
 		contentType: 'image/jpg'
 	}
-
 	
 	req.body.img = img
 	
@@ -144,6 +141,7 @@ exports.nftFavCnt = function(req, res) {
 			}
 		})
 }
+
 exports.delete_a_nft = function(req, res) {
 	NFT.remove({
 		_id: req.params.nftId
@@ -153,5 +151,3 @@ exports.delete_a_nft = function(req, res) {
 		res.json({ message: 'NFT successfully deleted' });
 	});
 }
-
-
