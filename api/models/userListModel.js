@@ -25,6 +25,7 @@ var UserSchema = new Schema({
         data: Buffer,
         contentType: String
     },
+    collectedNftIds: [Number],
     favNftIds: [Number],
     Created_date: {
         type: Date,

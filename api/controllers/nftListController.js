@@ -137,7 +137,10 @@ exports.nftFavCnt = function(req, res) {
 			if(err) {
 				res.send(err)
 			} else {
-				res.json(numberOfFavs[0].numberOfFavs)
+				if (numberOfFavs[0] !== undefined)
+					res.json(numberOfFavs[0].numberOfFavs)
+				else 
+					res.json(0)
 			}
 		})
 }

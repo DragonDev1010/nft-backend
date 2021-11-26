@@ -37,9 +37,10 @@ exports.update_a_user = async function(req, res) {
 
 	bgImgPath = process.env.PWD + '/usersImg/' + req.params.userId + '_bgImg.jpg'
 	userImgPath = process.env.PWD + '/usersImg/' + req.params.userId + '_userImg.jpg'
-	bgImgFile = req.files.bgImg 
-	userImgFile = req.files.userImg
-	if(bgImgFile != undefined) {
+	
+	
+	if(req.files !== null && req.files.bgImg != undefined) {
+		bgImgFile = req.files.bgImg 
 		await bgImgFile.mv(bgImgPath, async (err) => {
 			if (err) {
 				console.log('Error: failed to download file')
@@ -57,7 +58,8 @@ exports.update_a_user = async function(req, res) {
 			});
 		})
 	}
-	if(userImgFile != undefined) {
+	if(req.files !== null && req.files.userImg != undefined) {
+		userImgFile = req.files.userImg
 		await userImgFile.mv(userImgPath, async (err) => {
 			if (err) {
 				console.log('Error: failed to download file')
@@ -75,7 +77,13 @@ exports.update_a_user = async function(req, res) {
 			});
 		})
 	}
-	
+	if(bgImgFile === undefined && userImgFile === undefined) {
+		User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
+			if (err)
+				res.send(err);
+			res.json(user);
+		});
+	}
 
 };
 
