@@ -3,3 +3,4 @@ files
 usersImg
 api/controllers/files
 .env
+DB_Backup/data
