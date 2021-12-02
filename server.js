@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: '.env' })
 var express = require('express')
 var mongoose = require('mongoose')
 var cors = require("cors");
@@ -21,6 +21,7 @@ app.use(bodyParser.json({
 app.use(expFileUpload())
 
 mongoose.Promise = global.Promise
+console.log('test: ', process.env.DATABASE)
 mongoose.connect(process.env.DATABASE, function(err){
     console.error('mongoose connect issue', err)
 })
