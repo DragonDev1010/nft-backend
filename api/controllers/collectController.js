@@ -3,7 +3,6 @@
 var mongoose = require('mongoose')
 var Collects = mongoose.model('collect');
 exports.list_all_collect = function(req, res) {
-	console.log('this is test')
 	var filters = req.query
 	var query = {}
 	if(filters.collectsName !== undefined) {

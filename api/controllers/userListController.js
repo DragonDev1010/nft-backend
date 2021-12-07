@@ -37,45 +37,45 @@ exports.update_a_user = async function(req, res) {
 
 	bgImgPath = process.env.PWD + '/usersImg/' + req.params.userId + '_bgImg.jpg'
 	userImgPath = process.env.PWD + '/usersImg/' + req.params.userId + '_userImg.jpg'
-	
-	
-	if(req.files !== null && req.files.bgImg != undefined) {
-		bgImgFile = req.files.bgImg 
-		await bgImgFile.mv(bgImgPath, async (err) => {
-			if (err) {
-				console.log('Error: failed to download file')
-				return res.status(500).send(err);
-			} 
-			let bgImg = {
-				data: fs.readFileSync(bgImgPath),
-				contentType: 'image/jpg'
-			}
-			req.body.bgImg = bgImg
-			User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
-				if (err)
-					res.send(err);
-				res.json(user);
-			});
-		})
-	}
-	if(req.files !== null && req.files.userImg != undefined) {
-		userImgFile = req.files.userImg
-		await userImgFile.mv(userImgPath, async (err) => {
-			if (err) {
-				console.log('Error: failed to download file')
-				return res.status(500).send(err);
-			} 
-			let userImg = {
-				data: fs.readFileSync(userImgPath),
-				contentType: 'image/jpg'
-			}
-			req.body.userImg = userImg
-			User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
-				if (err)
-					res.send(err);
-				res.json(user);
-			});
-		})
+	if(req.files !== null && req.files !== undefined) {
+		if(req.files.bgImg !== undefined) {
+			bgImgFile = req.files.bgImg 
+			await bgImgFile.mv(bgImgPath, async (err) => {
+				if (err) {
+					console.log('Error: failed to download file')
+					return res.status(500).send(err);
+				} 
+				let bgImg = {
+					data: fs.readFileSync(bgImgPath),
+					contentType: 'image/jpg'
+				}
+				req.body.bgImg = bgImg
+				User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
+					if (err)
+						res.send(err);
+					res.json(user);
+				});
+			})
+		}
+		if(req.files.userImg !== undefined) {
+			userImgFile = req.files.userImg
+			await userImgFile.mv(userImgPath, async (err) => {
+				if (err) {
+					console.log('Error: failed to download file')
+					return res.status(500).send(err);
+				} 
+				let userImg = {
+					data: fs.readFileSync(userImgPath),
+					contentType: 'image/jpg'
+				}
+				req.body.userImg = userImg
+				User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
+					if (err)
+						res.send(err);
+					res.json(user);
+				});
+			})
+		}
 	}
 	if(bgImgFile === undefined && userImgFile === undefined) {
 		User.findOneAndUpdate({userId: req.params.userId}, req.body, {new: true}, function(err, user) {
