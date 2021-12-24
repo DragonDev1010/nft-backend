@@ -6,7 +6,6 @@ const fs = require('fs')
 const {create} = require('ipfs-http-client')
 const ipfs = create('http://localhost:5001')
 exports.list_all_nfts = function(req, res) {
-	console.log('call list_all_nfts')
 	var filters = req.query
 	var query = {}
 	// localhost:8000/nfts?search[collects][0]=Tiger&search[status][0]=0&search[status][1]=1&search[price][min]=0.04&search[price][max]=0.07
@@ -29,7 +28,6 @@ exports.list_all_nfts = function(req, res) {
 		function(err, nft) {
 			if (err)
 				res.send(err);
-			console.log('nft amount: ', nft.length)
 			res.json(nft);
     });
 }

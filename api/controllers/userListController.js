@@ -96,7 +96,6 @@ exports.update_fav = function(req, res) {
 }
 
 exports.findByWallet = function(req, res) {
-	console.log(req.params.walletAddress, ' : ', typeof(req.params.walletAddress))
 	User.find({walletAddress: req.params.walletAddress}, function(err, user) {
 		if(err)
 			res.send(err)
