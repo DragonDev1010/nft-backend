@@ -31,6 +31,24 @@ exports.list_all_nfts = function(req, res) {
 			res.json(nft);
     });
 }
+exports.forSaleNfts = function(req, res) {
+    NFT.find(
+		{forSale: true}, 
+		function(err, nft) {
+			if (err)
+				res.send(err);
+			res.json(nft);
+    });
+}
+exports.unlistNfts = function(req, res) {
+    NFT.find(
+		{forSale: false}, 
+		function(err, nft) {
+			if (err)
+				res.send(err);
+			res.json(nft);
+    });
+}
 function getDateName() {
 	let curDate = new Date()
 	let year = curDate.getFullYear().toString()

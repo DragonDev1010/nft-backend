@@ -20,6 +20,7 @@ var NFTSchema = new Schema({
     category: String,
     royalty: Number,
     saleOptions: Number,
+    forSale: Boolean,
 
     favUserIds: [Number],
 

@@ -4,12 +4,6 @@ module.exports = function(app) {
 
     app.route('/nfts')
         .get(nftList.list_all_nfts)
-        // Post Data E.X.
-        // Postman -> Body/raw/JSON
-        // {
-        //     "nft_id":3,
-        //     "name": "Bear"
-        // }
         .post(nftList.create_a_nft) 
 
     app.route('/nfts/:nftId')
@@ -20,4 +14,8 @@ module.exports = function(app) {
         .put(nftList.update_fav)
     app.route('/nftFavCnt/:nftId')
         .get(nftList.nftFavCnt)
+    app.route('/forSaleNfts')
+        .get(nftList.forSaleNfts)  
+    app.route('/unlistNfts')
+        .get(nftList.unlistNfts)
 }
