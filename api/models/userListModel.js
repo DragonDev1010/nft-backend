@@ -14,6 +14,14 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
+    
+    firstName: String,
+    lastName: String,
+    facebook: String,
+    twitter: String,
+    instagram: String,
+    tele: String,
+
     walletAddress: {
         type: String,
         required: true

@@ -4,7 +4,9 @@ module.exports = function(app) {
     app.route('/users')
         .get(userList.list_all_users)
         .post(userList.create_a_user)
-
+    app.route('/users/:walletAddress')
+        .get(userList.findByWallet)
+        .put(userList.update_a_user)
     app.route('/users/:userId')
         .get(userList.read_a_user)
         .put(userList.update_a_user)
