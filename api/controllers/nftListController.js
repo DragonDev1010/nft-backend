@@ -90,12 +90,6 @@ exports.create_a_nft = async function(req, res) {
 		}
 	});
 
-	let count = await NFT.countDocuments();
-	req.body.nft_id = count
-
-	fileHash = await addFile(fileName, filePath)
-	req.body.hash = fileHash
-
 	req.body.imgURL = fileName
 	let img = {
 		data: fs.readFileSync(filePath),
@@ -171,4 +165,23 @@ exports.delete_a_nft = function(req, res) {
 		  res.send(err);
 		res.json({ message: 'NFT successfully deleted' });
 	});
+}
+
+exports.ipfs = async function(req, res) {
+	let fileHash
+
+	let fileName = req.body.name + '_' + getDateName() + '.jpg'
+	let filePath = process.env.PWD + '/files/' + fileName 
+	
+	let imageFile = req.files.file;
+	imageFile.mv(filePath, async (err) => {
+		if (err) {
+			console.log('Error: failed to download file')
+			return res.status(500).send(err);
+		}
+	});
+	fileHash = await addFile(fileName, filePath)
+	if(fileHash !== null && fileHash !== undefined) {
+		res.json(fileHash)
+	}
 }

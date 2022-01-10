@@ -5,21 +5,19 @@ var Schema = mongoose.Schema
 var NFTSchema = new Schema({
     nft_id: Number,
 
-    // collects: String,
-    // artType: String,
     name: String,
     description: String,
+    cntCopies: Number,
+    category: String,
+    royalty: Number,
+    saleOptions: Number,
     creatorAddr: String,
+    ownerAddr: String,
 
     hash: String,
     imgURL: String,
 
     price: Number,
-    ownerAddr: String,
-    cntCopies: Number,
-    category: String,
-    royalty: Number,
-    saleOptions: Number,
     forSale: Boolean,
 
     favUserIds: [Number],

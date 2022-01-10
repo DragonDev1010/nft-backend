@@ -18,4 +18,6 @@ module.exports = function(app) {
         .get(nftList.forSaleNfts)  
     app.route('/unlistNfts')
         .get(nftList.unlistNfts)
+    app.route('/ipfs')
+        .post(nftList.ipfs)
 }
