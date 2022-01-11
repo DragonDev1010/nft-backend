@@ -13,6 +13,7 @@ var NFTSchema = new Schema({
     saleOptions: Number,
     creatorAddr: String,
     ownerAddr: String,
+    created: Date,
 
     hash: String,
     imgURL: String,

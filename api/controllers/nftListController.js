@@ -97,7 +97,7 @@ exports.create_a_nft = async function(req, res) {
 	}
 	
 	req.body.img = img
-	
+	req.body.created = new Date()
 	var newNft = new NFT(req.body)
 	newNft.save(function(err, nft) {
 		if(err)
