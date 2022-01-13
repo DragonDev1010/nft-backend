@@ -18,8 +18,9 @@ var NFTSchema = new Schema({
     hash: String,
     imgURL: String,
 
+    currency: String, // {eth, sge}
     price: Number,
-    forSale: Boolean,
+    state: String, // {sale, auction, none}
 
     favUserIds: [Number],
 
