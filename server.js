@@ -41,6 +41,11 @@ User = require('./api/models/userListModel')
 var userRoutes = require('./api/routes/userListRoutes')
 userRoutes(app)
 
+// Auction Table
+Auction = require('./api/models/auctionModel')
+var auctionRoutes = require('./api/routes/auctionRoutes')
+auctionRoutes(app)
+
 
 app.listen(port)
 
