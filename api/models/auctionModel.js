@@ -9,7 +9,8 @@ var AuctionSchema =  new Schema({
     startTime: Date,
     endTime: Date,
     creator: String,
-    created: Date
+    created: Date,
+    highestBid: Number
 })
 
 module.exports = mongoose.model('Auctions', AuctionSchema)
