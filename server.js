@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '.env' })
+require('events').EventEmitter.defaultMaxListeners = 15;
 var express = require('express')
 var mongoose = require('mongoose')
 var cors = require("cors");
@@ -46,6 +47,10 @@ Auction = require('./api/models/auctionModel')
 var auctionRoutes = require('./api/routes/auctionRoutes')
 auctionRoutes(app)
 
+// Sale Table
+Sale = require('./api/models/saleModel')
+var saleRoutes = require('./api/routes/saleRoutes')
+saleRoutes(app)
 
 app.listen(port)
 
