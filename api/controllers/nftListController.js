@@ -122,40 +122,40 @@ exports.update_a_nft = function(req, res) {
 	});
 }
 
-exports.update_fav = function(req, res) {
-	NFT.findOneAndUpdate({nft_id: req.params.nftId}, {favUserIds: req.body.favUserIds}, function(err, nft) {
-		if (err)
-		  res.send(err);
-		res.json(nft);
-	});
-}
-exports.nftFavCnt = function(req, res) {
-	NFT.aggregate()
-		.match({nft_id: parseInt(req.params.nftId)})
-		.project({
-			numberOfFavs: {
-			  $cond: {
-				if: {
-				  $isArray: "$favUserIds"
-				},
-				then: {
-				  $size: "$favUserIds"
-				},
-				else: 0
-			  }
-			}
-		  })
-		.exec(function(err, numberOfFavs) {
-			if(err) {
-				res.send(err)
-			} else {
-				if (numberOfFavs[0] !== undefined)
-					res.json(numberOfFavs[0].numberOfFavs)
-				else 
-					res.json(0)
-			}
-		})
-}
+// exports.update_fav = function(req, res) {
+// 	NFT.findOneAndUpdate({nft_id: req.params.nftId}, {favUserIds: req.body.favUserIds}, function(err, nft) {
+// 		if (err)
+// 		  res.send(err);
+// 		res.json(nft);
+// 	});
+// }
+// exports.nftFavCnt = function(req, res) {
+// 	NFT.aggregate()
+// 		.match({nft_id: parseInt(req.params.nftId)})
+// 		.project({
+// 			numberOfFavs: {
+// 			  $cond: {
+// 				if: {
+// 				  $isArray: "$favUserIds"
+// 				},
+// 				then: {
+// 				  $size: "$favUserIds"
+// 				},
+// 				else: 0
+// 			  }
+// 			}
+// 		  })
+// 		.exec(function(err, numberOfFavs) {
+// 			if(err) {
+// 				res.send(err)
+// 			} else {
+// 				if (numberOfFavs[0] !== undefined)
+// 					res.json(numberOfFavs[0].numberOfFavs)
+// 				else 
+// 					res.json(0)
+// 			}
+// 		})
+// }
 
 exports.delete_a_nft = function(req, res) {
 	NFT.remove({

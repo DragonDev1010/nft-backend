@@ -22,7 +22,7 @@ var NFTSchema = new Schema({
     price: Number,
     state: String, // {sale, auction, none}
 
-    favUserIds: [Number],
+    favUsers: [String],
 
     img: { data: Buffer, contentType: String}
 }, {collection: 'nft'})
