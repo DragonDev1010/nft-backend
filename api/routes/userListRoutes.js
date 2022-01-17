@@ -15,4 +15,6 @@ module.exports = function(app) {
         .put(userList.update_fav)
     app.route('/users/findByWallet/:walletAddress')
         .get(userList.findByWallet)
+    app.route('/top_creators/')
+        .get(userList.topCreators)
 }

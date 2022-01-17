@@ -116,3 +116,14 @@ exports.delete_a_user = function(req, res) {
 		res.json({ message: 'User successfully deleted' });
 	});
 };
+
+exports.topCreators = function(req, res) {
+	User.find().limit(15).then(users=>{
+		if(!users){
+			const error=new Error("No user is there to fetch");
+			error.statusCode=404;
+			throw(error);
+		}
+		return res.status(200).json(users);
+	}).catch(err=>console.log(err));
+}
